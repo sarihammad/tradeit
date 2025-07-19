@@ -21,7 +21,7 @@ The system starts with main.cpp, which loads config and kicks everything off. Th
 ```mermaid
 graph TD
 
-    A[tradeit.cpp<br>Main entrypoint] --> B[Simulator<br>Routes trades/orders]
+    A[main.cpp<br>Main entrypoint] --> B[Simulator<br>Routes trades/orders]
     B --> C[OrderBook<br>Matching Engine]
     B --> D[MarketDataHandler<br>Feeds orders from CSV]
 
@@ -33,18 +33,12 @@ graph TD
     E2 --> F2[logs/momentum_trades.csv]
     E3 --> F3[logs/arbitrage_trades.csv]
 
-    style A fill:#e6f7ff,stroke:#005580,stroke-width:1px
-    style B fill:#ffffff,stroke:#0066cc,stroke-width:1px
-    style C fill:#f0f0f0,stroke:#999999,stroke-width:1px
-    style D fill:#f0f0f0,stroke:#999999,stroke-width:1px
-    style E1 fill:#eaffea,stroke:#339933,stroke-width:1px
-    style E2 fill:#eaffea,stroke:#339933,stroke-width:1px
-    style E3 fill:#eaffea,stroke:#339933,stroke-width:1px
+    
 ```
 
 ### What This Shows
 
-- `main.cpp` is your main binary.
+- `main.cpp` is the main binary.
 - It wires together:
   - The **Simulator**, which acts as a central hub.
   - The **OrderBook** for matching and tracking prices.
@@ -125,10 +119,10 @@ make
 
 ### Running the Strategy Engine
 
-After building the project, you can run the main strategy engine using:
+After building the project, run the main strategy engine using:
 
 ```bash
-./tradeit --strategy marketmaker --file data/eth_usd.csv
+./tradeit --strategy marketmaker
 ```
 
 Supported strategy options include:
@@ -136,12 +130,6 @@ Supported strategy options include:
 - `marketmaker`
 - `momentum`
 - `arbitrage`
-
-Optional runtime parameters:
-- `--file <path>`: Market data file (CSV format)
-- `--spread <value>`: Used by arbitrage strategy
-- `--size <int>`: Order size
-- `--risk <amount>`: Max loss before strategy auto-stops
 
 For example:
 
