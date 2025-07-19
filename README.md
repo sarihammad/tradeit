@@ -9,12 +9,12 @@ A high-performance multithreaded C++ simulator for algorithmic trading.
 - **Multithreaded Execution**: Strategies run concurrently using `std::thread`, `std::mutex`, and condition variables.
 - **Risk Management**: Real-time risk checks for drawdown, max inventory, and stop conditions.
 - **Logging and Metrics**: CSV logs for trades and internal metrics (PnL, inventory, spread, etc).
-- **Comprehensive Test Suite**: Unit and integration tests with Catch2 framework.
-- **Modular Architecture**: Decoupled design using core/engine/strategy layers.
+- **Comprehensive Test Suite**: Unit and integration tests with Catch2.
+- **Modular Architecture**: Decoupled design with clean architecture.
 
 ## System Overview
 
-The system starts with main.cpp, which loads config and kicks everything off. The MarketDataHandler streams in orders from a CSV. These go to the Simulator, which sends them to Strategies like Market Maker or Arbitrage. Strategies decide whether to trade and submit orders back through the Simulator, which places them into the OrderBook. The OrderBook matches opposing buy/sell orders and creates trades, which are then sent back to strategies to update their state.
+The system starts with main.cpp, which loads input configuration and brings the system together. MarketDataHandler streams in orders from a CSV. These go to the Simulator, which sends them to the input strategies (Market Maker, Arbitrage or Momentum). The strategies decide whether to trade and submit orders back through the Simulator, which places them into the order book. The Order Book matches opposing buy/sell orders and creates trades, which are then sent back to strategies to update their state.
 
 ## Architecture
 
@@ -35,17 +35,6 @@ graph TD
 
     
 ```
-
-### What This Shows
-
-- `main.cpp` is the main binary.
-- It wires together:
-  - The **Simulator**, which acts as a central hub.
-  - The **OrderBook** for matching and tracking prices.
-  - The **MarketDataHandler** which reads CSV order flow.
-  - One of the **Strategies**: `MarketMaker`, `MomentumTrader`, or `ArbitrageTrader`.
-- Strategies write logs to their respective CSV files.
-
 ## Sequence: Market Data to Trade Flow
 
 ```mermaid
@@ -70,22 +59,6 @@ sequenceDiagram
     Strategy-->>TradeLog: write to logs/*.csv
 
 ```
-
-### What It Shows
-
-This diagram captures the full lifecycle:
-
-1. **MarketDataHandler** reads an order from the input CSV file.
-2. That order is:
-   - Routed to the **Simulator** (to update state),
-   - Sent to the selected **Strategy** as market data.
-3. If the strategy reacts and submits an order:
-   - It goes back to the **Simulator**,
-   - Which forwards it to the **OrderBook**.
-4. If a **trade is matched**, the OrderBook calls back:
-   - The Simulator handles the trade and notifies the **Strategy**.
-5. The **Strategy logs** the trade to its own CSV file under `logs/`.
-
 
 ## Strategy Details
 
@@ -114,17 +87,15 @@ cmake ..
 make
 ```
 
-
 ## How to Run
 
 ### Running the Strategy Engine
 
-After building the project, run the main strategy engine using:
+After building the project, run the engine with default configuration using:
 
 ```bash
-./tradeit --strategy marketmaker
+./tradeit
 ```
-
 Supported strategy options include:
 
 - `marketmaker`
