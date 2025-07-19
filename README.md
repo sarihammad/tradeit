@@ -33,18 +33,18 @@ graph TD
     E2 --> F2[logs/momentum_trades.csv]
     E3 --> F3[logs/arbitrage_trades.csv]
 
-    style A fill:#f9f,stroke:#333,stroke-width:1px
-    style B fill:#bbf,stroke:#333
-    style C fill:#ffd,stroke:#333
-    style D fill:#ffd,stroke:#333
-    style E1 fill:#afa,stroke:#333
-    style E2 fill:#afa,stroke:#333
-    style E3 fill:#afa,stroke:#333
+    style A fill:#e6f7ff,stroke:#005580,stroke-width:1px
+    style B fill:#ffffff,stroke:#0066cc,stroke-width:1px
+    style C fill:#f0f0f0,stroke:#999999,stroke-width:1px
+    style D fill:#f0f0f0,stroke:#999999,stroke-width:1px
+    style E1 fill:#eaffea,stroke:#339933,stroke-width:1px
+    style E2 fill:#eaffea,stroke:#339933,stroke-width:1px
+    style E3 fill:#eaffea,stroke:#339933,stroke-width:1px
 ```
 
 ### What This Shows
 
-- `tradeit.cpp` is your main binary.
+- `main.cpp` is your main binary.
 - It wires together:
   - The **Simulator**, which acts as a central hub.
   - The **OrderBook** for matching and tracking prices.
