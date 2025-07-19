@@ -1,0 +1,12 @@
+build/
+*.log
+*.csv
+*.o
+*.so
+*.zip
+logs/
+*.tmp
+*.swp
+.vscode/
+.idea/
+.DS_Store
